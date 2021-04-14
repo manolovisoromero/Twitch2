@@ -1,0 +1,3 @@
+F:\Projects\Twitch2\Kafkareader\Kafkareader\obj\Debug\Kafkareader.njsprojAssemblyReference.cache
+F:\Projects\Twitch2\Kafkareader\Kafkareader\obj\Debug\Kafkareader.njsproj.CoreCompileInputs.cache
+F:\Projects\Twitch2\Kafkareader\Kafkareader\bin\Microsoft.NodejsTools.WebRole.dll

@@ -1,0 +1,12 @@
+{
+  "name": "socket-chat-example",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "my first socket.io app",
+  "dependencies": {
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "kafkajs": "^1.15.0",
+    "socket.io": "^3.1.2"
+  }
+}
