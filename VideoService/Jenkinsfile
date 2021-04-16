@@ -7,10 +7,12 @@ pipeline {
                 def dockerHome = tool 'myDocker'
                 env.PATH = "${dockerHome}/bin:${env.PATH}" }
         }
+           echo 'initialize..'
         }
         stage('build') {
             steps {
                 sh 'mvn --version'
+                 echo 'build..'
             }
         }
     }
