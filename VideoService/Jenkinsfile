@@ -1,5 +1,9 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
+        tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk11'
+    }
     stages {
        stage('Initialize'){
         steps {
@@ -7,16 +11,15 @@ pipeline {
         }
         
         }
-         stage('test') {
+
+         stage ('Build') {
             steps {
-                sh 'mvn test'
-                 echo 'testing'
+                sh 'mvn -Dmaven.test.failure.ignore=true install' 
             }
-        }
-        stage('build') {
-            steps {
-                sh 'mvn --version'
-                 echo 'build..'
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml' 
+                }
             }
         }
     }
