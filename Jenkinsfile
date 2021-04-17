@@ -22,7 +22,10 @@ pipeline {
         }
          stage('Test VideoServiceJS'){
              steps { 
-                 sh 'npm test'}
+                 sh ''' 
+                 npm test
+                 cd VideoServiceJS
+                 '''}
          }
 
          stage ('Build  VideoService') {
