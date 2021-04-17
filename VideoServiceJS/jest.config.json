@@ -1,4 +1,5 @@
 {
-    "testRegex": "((\\.|/*.)(spec))\\.js?$"
-    
+    "testRegex": "((\\.|/*.)(spec))\\.js?$",
+    "testResultsProcessor": "jest-junit"
+
 }
