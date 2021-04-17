@@ -2,7 +2,7 @@ pipeline {
     agent { docker { image 'maven:3.3.3' } }
         tools { 
         jdk 'OpenJDK-11' 
-        nodejs "node"
+        nodejs "NodeJS"
     }
     stages {
        stage('Initialize'){
