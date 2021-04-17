@@ -5,10 +5,10 @@ pipeline {
         nodejs 'NodeJS'
     }
     stages {
-              agent {docker { image 'node:14.16.0-alpine'}}
             
        stage('Build VideoServiceJS'){
-                
+              agent {docker { image 'node:14.16.0-alpine'}}
+
         steps {
                sh '''
                cd VideoServiceJS
@@ -18,9 +18,10 @@ pipeline {
 
                 }
         }
-            agent {docker { image 'node:14.16.0-alpine'}}
             
          stage('Test VideoServiceJS'){
+                agent {docker { image 'node:14.16.0-alpine'}}
+
              steps { 
                  sh ''' 
                  cd VideoServiceJS
