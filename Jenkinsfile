@@ -28,7 +28,7 @@ pipeline {
                  '''}
             post {
                     success {
-                            junit checksName: 'Jest Tests', testResults: 'junit.xml'
+                            junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
                     }
             }
         }
