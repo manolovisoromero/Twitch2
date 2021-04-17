@@ -5,16 +5,20 @@ pipeline {
         nodejs "NodeJS"
     }
     stages {
-       stage('Initialize'){
+       stage('Build VideoServiceJS'){
         steps {
-               echo 'initialize...'
+               sh 'cd VideoServiceJS'
+               sh 'npm install'
+                }
         }
-        
-        }
+         stage('Test VideoServiceJS'){
+             steps { sh 'npm test'}
+         }
 
-         stage ('Build') {
+         stage ('Build  VideoService') {
             steps {
                 sh ''' 
+                cd ..
                 cd VideoService
                 mvn -Dmaven.test.failure.ignore=true install
                 '''
