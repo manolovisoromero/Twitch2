@@ -1,5 +1,5 @@
 pipeline {
-
+        agent none
         tools { 
         jdk 'OpenJDK-11' 
         nodejs 'NodeJS'
