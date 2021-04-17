@@ -1,5 +1,8 @@
 pipeline {
     agent { docker { image 'maven:3.3.3' } }
+        tools { 
+        jdk 'OpenJDK-11' 
+    }
     stages {
        stage('Initialize'){
         steps {
@@ -7,10 +10,18 @@ pipeline {
         }
         
         }
-        stage('build') {
+
+         stage ('Build') {
             steps {
-                sh 'mvn --version'
-                 echo 'build..'
+                sh ''' 
+                cd VideoService
+                mvn -Dmaven.test.failure.ignore=true install
+                '''
+            }
+            post {
+                success {
+                    junit 'VideoService/target/surefire-reports/**/*.xml' 
+                }
             }
         }
     }
