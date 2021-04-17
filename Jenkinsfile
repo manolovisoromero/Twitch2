@@ -28,12 +28,13 @@ pipeline {
                  npm test
                 
                  '''}
-         }
-            post {
+                  post {
                     success {
                             junit checksName: 'Jest Tests', testResults: 'junit.xml'
                     }
             }
+         }
+           
 
             
 
