@@ -6,9 +6,16 @@ pipeline {
     }
     stages {
        stage('Build VideoServiceJS'){
+                 agent {
+                docker { image 'node:14.16.0-alpine' }
+            }
         steps {
-               sh 'cd VideoServiceJS'
-                 sh "/usr/bin/npm install"
+               sh '''
+               cd VideoServiceJS
+               node --version
+               npm install
+               '''
+
                 }
         }
          stage('Test VideoServiceJS'){
