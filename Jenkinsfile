@@ -8,12 +8,11 @@ pipeline {
        stage('Build VideoServiceJS'){
         steps {
                sh 'cd VideoServiceJS'
-               sh 'npm install'
+                 sh "/usr/bin/npm install"
                 }
         }
          stage('Test VideoServiceJS'){
              steps { 
-                 sh "/usr/bin/npm install"
                  sh 'npm test'}
          }
 
