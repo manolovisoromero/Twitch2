@@ -29,6 +29,13 @@ pipeline {
                 
                  '''}
          }
+            post {
+                    success {
+                            junit checksName: 'Jest Tests', testResults: 'junit.xml'
+                    }
+            }
+
+            
 
          stage ('Build  VideoService') {
                agent {docker { image 'maven:3.3.3'}}
