@@ -1,6 +1,8 @@
 pipeline {
      agent {
-                docker { image 'node:14.16.0-alpine' }
+                docker { image 'node:14.16.0-alpine'
+                       image 'maven:3.3.3'
+                       }
             }
         tools { 
         jdk 'OpenJDK-11' 
@@ -9,7 +11,6 @@ pipeline {
     stages {
        stage('Build VideoServiceJS'){
                 
-           agent { docker { image 'maven:3.3.3' } }
         steps {
                sh '''
                cd VideoServiceJS
