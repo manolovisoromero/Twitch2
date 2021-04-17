@@ -12,7 +12,9 @@ pipeline {
                 }
         }
          stage('Test VideoServiceJS'){
-             steps { sh 'npm test'}
+             steps { 
+                 sh "/usr/bin/npm install"
+                 sh 'npm test'}
          }
 
          stage ('Build  VideoService') {
