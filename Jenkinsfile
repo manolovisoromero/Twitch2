@@ -1,18 +1,45 @@
 pipeline {
-    agent { docker { image 'maven:3.3.3' } }
+        agent none
         tools { 
         jdk 'OpenJDK-11' 
-        nodejs "node"
+        nodejs 'NodeJS'
     }
     stages {
-       stage('Initialize'){
-        steps {
-               echo 'initialize...'
-        }
-        
-        }
+            
+       stage('Build VideoServiceJS'){
+              agent {docker { image 'node:14.16.0-alpine'}}
 
-         stage ('Build') {
+        steps {
+               sh '''
+               cd VideoServiceJS
+               node --version
+               npm install
+               '''
+
+                }
+        }
+            
+         stage('Test VideoServiceJS'){
+                agent {docker { image 'node:14.16.0-alpine'}}
+
+             steps { 
+                 sh ''' 
+                 cd VideoServiceJS
+                 npm test
+                
+                 '''}
+                  post {
+                    success {
+                            junit checksName: 'Jest Tests', testResults: 'junit.xml'
+                    }
+            }
+         }
+           
+
+            
+
+         stage ('Build  VideoService') {
+               agent {docker { image 'maven:3.3.3'}}
             steps {
                 sh ''' 
                 cd VideoService
