@@ -32,7 +32,6 @@ pipeline {
          stage ('Build  VideoService') {
             steps {
                 sh ''' 
-                cd ..
                 cd VideoService
                 mvn -Dmaven.test.failure.ignore=true install
                 '''
