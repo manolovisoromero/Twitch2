@@ -1,3 +1,6 @@
+def mavenImage = 'maven:3.3.3'
+
+
 pipeline {
         agent none
         tools {
@@ -34,7 +37,7 @@ pipeline {
         }
 
         stage ('Build  VideoService') {
-            agent { docker { image 'maven:3.3.3' } }
+            agent { docker { image mavenImage } }
             steps {
                 sh '''
                 cd VideoService
