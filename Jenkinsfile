@@ -1,5 +1,5 @@
 def mavenImage = 'maven:3.3.3'
-
+def nodeImage = 'node:14.16.0-alpine'
 
 pipeline {
         agent none
@@ -9,7 +9,7 @@ pipeline {
         }
     stages {
         stage('Build VideoServiceJS') {
-            agent { docker { image 'node:14.16.0-alpine' } }
+            agent { docker { image nodeImage } }
 
             steps {
                 sh '''
@@ -21,13 +21,12 @@ pipeline {
         }
 
         stage('Test VideoServiceJS') {
-                agent { docker { image 'node:14.16.0-alpine' } }
+                agent { docker { image nodeImage } }
 
             steps {
                 sh '''
                  cd VideoServiceJS
                  npm test
-
                  '''}
             post {
                     success {
