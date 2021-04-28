@@ -45,12 +45,12 @@ pipeline {
             }
         }
         stage('Building image') {
-                        agent { docker { image nodeImage } }
+            agent any
 
             steps {
                 script {
-                    sh "cd VideoServiceJS"
-                    dockerImage = docker.build "mvisoromero/videoservicejs"
+                    sh 'cd VideoServiceJS'
+                    dockerImage = docker.build 'mvisoromero/videoservicejs'
                 }
             }
         }
