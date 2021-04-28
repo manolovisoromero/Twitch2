@@ -39,7 +39,7 @@ pipeline {
         // }
 
         stage('Clone git') {
-                agent any
+            agent { docker { image nodeImage } }
 
             steps {
                 git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
