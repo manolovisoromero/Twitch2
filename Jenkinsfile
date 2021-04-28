@@ -51,7 +51,7 @@ pipeline {
                 dir('./VideoServiceJS') {
                     script {
                         dockerImage = docker.build('mvisoromero/videoservicejs')
-                        docker.withRegistry('https://hub.docker.com/repository/docker/mvisoromero/twitch2', registryCredential) {
+                        docker.withRegistry('https://hub.docker.com/repository/docker/mvisoromero/twitch2', 'DockerCred') {
                             dockerImage.push('1')
                             dockerImage.push('latest')
                     }                    }
