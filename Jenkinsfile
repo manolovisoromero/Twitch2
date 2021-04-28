@@ -39,13 +39,14 @@ pipeline {
         // }
 
         stage('Clone git') {
-            agent { docker { image nodeImage } }
 
             steps {
                 git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
             }
         }
         stage('Building image') {
+                        agent { docker { image nodeImage } }
+
             steps {
                 script {
                     sh "cd VideoServiceJS"
