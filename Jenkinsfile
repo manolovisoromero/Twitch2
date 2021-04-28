@@ -48,6 +48,7 @@ pipeline {
         stage('Building image') {
             steps {
                 script {
+                    sh "cd VideoServiceJS"
                     dockerImage = docker.build "mvisoromero/videoservicejs"
                 }
             }
