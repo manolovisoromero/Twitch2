@@ -37,12 +37,12 @@ pipeline {
             }
         }
 
-        stage('Clone git') {
-            agent any
-            steps {
-                git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
-            }
-        }
+        // stage('Clone git') {
+        //     agent any
+        //     steps {
+        //         git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
+        //     }
+        // }
         stage('Building image') {
             agent any
 
