@@ -11,11 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import clsx from 'clsx';
 import { Alert } from 'reactstrap';
-//import 'bootstrap/dist/css/bootstrap.min.css';
-import videojs from 'video.js'
-import VideoPlayer from '../VideoPlayer.js'
-import 'video.js/dist/video-js.css';
-
 
 
 
@@ -25,7 +20,6 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
-
 
         this.loginPost = this.loginPost.bind(this);
         this.handleClickShowPassword = this.handleClickShowPassword.bind(this);

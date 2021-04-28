@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import videojs from 'video.js'
 import VideoPlayer from './VideoPlayer.js'
 import 'video.js/dist/video-js.css';
 import Login from './Screens/Login.js'
+import Login2 from './Screens/Login2.js'
+import { ReactKeycloakProvider } from '@react-keycloak/web'
 
+import keycloak from './keycloak'
 
 
 const videoJsOptions = {
@@ -16,9 +18,9 @@ const videoJsOptions = {
   }]
 }
 
+
+
 export default class App extends Component {
-
-
 
 
   constructor(props) {
@@ -37,22 +39,29 @@ export default class App extends Component {
   };
 
 
-  onLoginClicked = () => { this.setState({ isLoggedin: !this.state.isLoggedin }); 
+  onLoginClicked = () => {
+    this.setState({ isLoggedin: !this.state.isLoggedin });
   }
 
 
   render() {
     var { isLoggedin } = this.state;
 
-    if (!isLoggedin) {
-      return <div className="loginHolder">
-        <Login onLoginClicked={this.onLoginClicked} /*setData={this.setData}*/></Login>
-      </div>
+    if (!isLoggedin) {  
+      return (
+        <ReactKeycloakProvider       authClient={keycloak}
+        >
+            <Login2  loginClick={this.onLoginClicked}></Login2>
+        </ReactKeycloakProvider>
+      )
     }
     else {
       return (
-         <VideoPlayer { ...videoJsOptions } />
-        )
+        <ReactKeycloakProvider authClient={keycloak}>
+          <VideoPlayer {...videoJsOptions} />
+
+        </ReactKeycloakProvider>
+      )
     }
     ;
   }

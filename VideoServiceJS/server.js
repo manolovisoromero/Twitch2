@@ -12,3 +12,8 @@ const server = http.createServer((req, res) => {
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
+
+
+app.post('/PostVideo', (req, res) => {
+  return res.send('Received a POST HTTP method');
+});

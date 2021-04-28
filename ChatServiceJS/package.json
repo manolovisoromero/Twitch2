@@ -1,0 +1,11 @@
+{
+  "name": "chat-service",
+  "description": "A chat microservice for the Twitch2 system",
+  "dependencies": {
+    "express": "^4.17.1",
+    "foreach": "^2.0.5",
+    "ioredis": "^4.26.0",
+    "socket.io": "^4.0.1",
+    "socket.io-client": "^4.0.1"
+  }
+}

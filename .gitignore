@@ -3,3 +3,6 @@ package-lock.json
 VideoServiceJS/node_modules/.package-lock.json
 .package-lock.json
 
+ChatServiceJS/.vs/VSWorkspaceState.json
+ChatServiceJS/.vs/ChatServiceJS/v16/.suo
+ChatServiceJS/.vs/slnx.sqlite
