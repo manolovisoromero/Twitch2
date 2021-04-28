@@ -22,7 +22,6 @@ pipeline {
 
         stage('Test VideoServiceJS') {
                 agent { docker { image nodeImage } }
-
             steps {
                 sh '''
                  cd VideoServiceJS
@@ -32,6 +31,16 @@ pipeline {
                     success {
                             junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
                     }
+            }
+        }
+
+        stage('dockerfile test') {
+            agent { dockerfile true }
+            stages {
+                stage('versions') {
+                    sh 'node --version'
+                    sh 'svn --version'
+                }
             }
         }
 
