@@ -1,5 +1,6 @@
 def mavenImage = 'maven:3.3.3'
 def nodeImage = 'node:14.16.0-alpine'
+def registry = 'mvisoromero/twitch2'
 pipeline {
         agent none
         tools {
@@ -7,36 +8,34 @@ pipeline {
         nodejs 'NodeJS'
         }
         environment {
-            registry = 'mvisoromero/twitch2'
-            registryCredential = 'DockerCred'
             dockerImage = ''
         }
     stages {
-        // stage('Build VideoServiceJS') {
-        //     agent { docker { image nodeImage } }
+        stage('Build VideoServiceJS') {
+            agent { docker { image nodeImage } }
 
-        //     steps {
-        //         sh '''
-        //        cd VideoServiceJS
-        //        node --version
-        //        npm install
-        //        '''
-        //     }
-        // }
+            steps {
+                sh '''
+               cd VideoServiceJS
+               node --version
+               npm install
+               '''
+            }
+        }
 
-        // stage('Test VideoServiceJS') {
-        //         agent { docker { image nodeImage } }
-        //     steps {
-        //         sh '''
-        //          cd VideoServiceJS
-        //          npm test
-        //          '''}
-        //     post {
-        //             success {
-        //                     junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
-        //             }
-        //     }
-        // }
+        stage('Test VideoServiceJS') {
+                agent { docker { image nodeImage } }
+            steps {
+                sh '''
+                 cd VideoServiceJS
+                 npm test
+                 '''}
+            post {
+                    success {
+                            junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
+                    }
+            }
+        }
 
         stage('Clone git') {
             agent any
@@ -50,32 +49,20 @@ pipeline {
             steps {
                 dir('./VideoServiceJS') {
                     script {
-                        dockerImage = docker.build('mvisoromero/twitch2')
-                        docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-                            dockerImage.push('1')
-                            dockerImage.push('latest')
-                    }                    }
+                        dockerImage = docker.build(registry+"${env.BUILD_ID}")
+                 }
                     }
                 }
             }
 
-        // stage('Push image') {
-        //     steps {
-        //             docker.withRegistry('https://registry.hub.docker.com', 'git') {
-        //                 dockerImage.push('1')
-        //                 dockerImage.push('latest')
-        //             }
-        //     }
-        // }
-
-            // stage('dockerfile test') {
-            //     agent { docker { image nodeImage } }
-
-            // steps {
-            //         sh 'node --version'
-            //         sh 'svn --version'
-            // }
-            // }
+        stage('Push image') {
+            steps {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
+                        dockerImage.push('1')
+                        dockerImage.push('latest')
+                    }
+            }
+        }
 
         // stage ('Build  VideoService') {
         //     agent { docker { image mavenImage } }
