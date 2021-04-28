@@ -45,11 +45,11 @@ pipeline {
                 git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
             }
         }
-        stage('Build image') {
-                agent any
-
+        stage('Building image') {
             steps {
-                dockerImage = docker.build 'mvisoromero/videoservicejs'
+                script {
+                    dockerImage = docker.build imagename
+                }
             }
         }
 
@@ -62,19 +62,19 @@ pipeline {
             // }
             // }
 
-        // stage ('Build  VideoService') {
-        //     agent { docker { image mavenImage } }
-        //     steps {
-        //         sh '''
-        //         cd VideoService
-        //         mvn -Dmaven.test.failure.ignore=true install
-        //         '''
-        //     }
-        //     post {
-        //         success {
-        //             junit 'VideoService/target/surefire-reports/**/*.xml'
-        //         }
-        //     }
-        // }
+    // stage ('Build  VideoService') {
+    //     agent { docker { image mavenImage } }
+    //     steps {
+    //         sh '''
+    //         cd VideoService
+    //         mvn -Dmaven.test.failure.ignore=true install
+    //         '''
+    //     }
+    //     post {
+    //         success {
+    //             junit 'VideoService/target/surefire-reports/**/*.xml'
+    //         }
+    //     }
+    // }
     }
 }
