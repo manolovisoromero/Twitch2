@@ -51,11 +51,13 @@ pipeline {
                 dir('./VideoServiceJS') {
                     script {
                         dockerImage = docker.build('mvisoromero/videoservicejs')
-                        dockerImage.push()
+                        docker.withRegistry('https://hub.docker.com/repository/docker/mvisoromero/twitch2', registryCredential) {
+                            dockerImage.push('1')
+                            dockerImage.push('latest')
+                    }                    }
                     }
                 }
             }
-        }
 
         // stage('Push image') {
         //     steps {
@@ -75,19 +77,19 @@ pipeline {
             // }
             // }
 
-    // stage ('Build  VideoService') {
-    //     agent { docker { image mavenImage } }
-    //     steps {
-    //         sh '''
-    //         cd VideoService
-    //         mvn -Dmaven.test.failure.ignore=true install
-    //         '''
-    //     }
-    //     post {
-    //         success {
-    //             junit 'VideoService/target/surefire-reports/**/*.xml'
-    //         }
-    //     }
-    // }
+        // stage ('Build  VideoService') {
+        //     agent { docker { image mavenImage } }
+        //     steps {
+        //         sh '''
+        //         cd VideoService
+        //         mvn -Dmaven.test.failure.ignore=true install
+        //         '''
+        //     }
+        //     post {
+        //         success {
+        //             junit 'VideoService/target/surefire-reports/**/*.xml'
+        //         }
+        //     }
+        // }
+        }
     }
-}
