@@ -49,34 +49,35 @@ pipeline {
             steps {
                 dir('./VideoServiceJS') {
                     script {
-                        dockerImage = docker.build(registry)
-                 }
+                        dockerImage = docker.build(registry+"$env.BUILD_ID")
                     }
                 }
             }
+        }
 
         stage('Push image') {
             steps {
+                script {
                     docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-                        dockerImage.push('1')
                         dockerImage.push('latest')
                     }
+                }
             }
         }
 
-        // stage ('Build  VideoService') {
-        //     agent { docker { image mavenImage } }
-        //     steps {
-        //         sh '''
-        //         cd VideoService
-        //         mvn -Dmaven.test.failure.ignore=true install
-        //         '''
-        //     }
-        //     post {
-        //         success {
-        //             junit 'VideoService/target/surefire-reports/**/*.xml'
-        //         }
-        //     }
-        // }
-        }
+    // stage ('Build  VideoService') {
+    //     agent { docker { image mavenImage } }
+    //     steps {
+    //         sh '''
+    //         cd VideoService
+    //         mvn -Dmaven.test.failure.ignore=true install
+    //         '''
+    //     }
+    //     post {
+    //         success {
+    //             junit 'VideoService/target/surefire-reports/**/*.xml'
+    //         }
+    //     }
+    // }
     }
+}
