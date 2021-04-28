@@ -48,13 +48,23 @@ pipeline {
             agent any
 
             steps {
-                dir('./VideoServiceJS'){
-                    script{
-                        dockerImage = docker.build("mvisoromero/videoservicejs")
+                dir('./VideoServiceJS') {
+                    script {
+                        dockerImage = docker.build('mvisoromero/videoservicejs')
+                        dockerImage.push()
                     }
                 }
             }
         }
+
+        // stage('Push image') {
+        //     steps {
+        //             docker.withRegistry('https://registry.hub.docker.com', 'git') {
+        //                 dockerImage.push('1')
+        //                 dockerImage.push('latest')
+        //             }
+        //     }
+        // }
 
             // stage('dockerfile test') {
             //     agent { docker { image nodeImage } }
