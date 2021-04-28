@@ -35,7 +35,9 @@ pipeline {
         }
 
         stage('dockerfile test') {
-            agent { dockerfile true }
+            agent { dockerfile {
+                    dir './VideoServiceJS'
+            }  }
             steps {
                     sh 'node --version'
                     sh 'svn --version'
