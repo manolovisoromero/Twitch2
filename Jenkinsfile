@@ -7,6 +7,11 @@ pipeline {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
         }
+        environment {
+            registry = 'mvisoromero/twitch2'
+            registryCredential = 'DockerCred'
+            dockerImage = ''
+        }
     stages {
         stage('Build VideoServiceJS') {
             agent { docker { image nodeImage } }
@@ -34,15 +39,41 @@ pipeline {
             }
         }
 
-        stage('dockerfile test') {
+    //     stage('dockerfile test') {
+    //         agent { dockerfile {
+    //                 dir './VideoServiceJS'
+    //         }
+    //     }
+    //         steps {
+    //                 sh 'node --version'
+    //                 sh 'svn --version'
+    //         }
+    // }
+
+            stage('dockerfile build') {
             agent { dockerfile {
                     dir './VideoServiceJS'
-            }  }
-            steps {
-                    sh 'node --version'
-                    sh 'svn --version'
             }
-        }
+            }
+            steps {
+                script {
+                    dockerImage = docker.build registry + '1'
+                }
+            }
+}
+                stage('dockerfile push') {
+            agent { dockerfile {
+                    dir './VideoServiceJS'
+            }
+                }
+            steps {
+                script {
+                        docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+    }
 
         stage ('Build  VideoService') {
             agent { docker { image mavenImage } }
@@ -58,5 +89,5 @@ pipeline {
                 }
             }
         }
-    }
+}
 }
