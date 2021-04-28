@@ -48,9 +48,10 @@ pipeline {
             agent any
 
             steps {
-                script {
-                    sh 'cd VideoServiceJS'
-                    dockerImage = docker.build 'mvisoromero/videoservicejs'
+                dir('./VideoServiceJS'){
+                    script{
+                        dockerImage = docker.build("mvisoromero/videoservicejs")
+                    }
                 }
             }
         }
