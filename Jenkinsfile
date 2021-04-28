@@ -36,11 +36,9 @@ pipeline {
 
         stage('dockerfile test') {
             agent { dockerfile true }
-            stages {
-                stage('versions') {
+            steps {
                     sh 'node --version'
                     sh 'svn --version'
-                }
             }
         }
 
