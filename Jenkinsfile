@@ -49,7 +49,7 @@ pipeline {
             steps {
                 dir('./VideoServiceJS') {
                     script {
-                        dockerImage = docker.build(registry+"${env.BUILD_ID}")
+                        dockerImage = docker.build(registry)
                  }
                     }
                 }
