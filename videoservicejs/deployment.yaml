@@ -1,39 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: twitch2
+  name: videoservicejs
   labels:
-    app: twitch2
+    app: videoservicejs
 spec:
   selector: 
     matchLabels:
-      app: twitch2
+      app: videoservicejs
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: twitch2
-        tier: twitch2
+        app: videoservicejs
+        tier: videoservicejs
     spec:
       # selector: 
       #   matchLabels:
       #     app: VideoServiceJS
       containers:
-        - name: twitch2
-          image: mvisoromero/twitch2:latest
+        - name: videoservicejs
+          image: mvisoromero/videoservicejs:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8083
-              name: twitch2
+              name: videoservicejs
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: twitch2
+  name: videoservicejs
   labels:
-    app: twitch2
+    app: videoservicejs
 spec:
   ports:
     - port: 8083
