@@ -28,7 +28,6 @@ metadata:
   name: VideoServiceJS
   labels:
     app: VideoServiceJS
-spec:
 ports:
   - port: 8083
     targetPort: 8083
