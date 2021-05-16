@@ -22,16 +22,16 @@ spec:
             name: VideoServiceJS
 
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: VideoServiceJS
-  labels:
-    app: VideoServiceJS
-ports:
-  - port: 8083
-    targetPort: 8083
-selector:
-  app: VideoServiceJS
-  tier: VideoServiceJS
-type: LoadBalancer
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: VideoServiceJS
+#   labels:
+#     app: VideoServiceJS
+# ports:
+#   - port: 8083
+#     targetPort: 8083
+# selector:
+#   app: VideoServiceJS
+#   tier: VideoServiceJS
+# type: LoadBalancer
