@@ -9,6 +9,10 @@ pipeline {
         }
         environment {
             dockerImage = ''
+            PROJECT_ID = 'third-light-313719'
+            CLUSTER_NAME = 'twitch2'
+            LOCATION = 'europe-west1-b'
+            CREDENTIALS_ID = 'gke'
         }
     stages {
         stage('VideoServiceJS: Build & Test') {
@@ -47,6 +51,7 @@ pipeline {
         }
 
         stage('Deploy to GKE') {
+        agent any
             steps {
             sh "sed -i 's/twitch2:latest/VideoServiceJS:${env.BUILD_ID}/g' deployment.yaml"
             step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
