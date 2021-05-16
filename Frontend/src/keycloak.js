@@ -5,7 +5,7 @@ import Keycloak from 'keycloak-js'
 
 
 const keycloakConfig = {
-    url: 'http://localhost:8080/auth', 
+    url: 'http://localhost:8091/auth', 
     realm: 'Twitch2', 
     clientId: 'Twitch2Frontend'
 

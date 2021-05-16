@@ -11,23 +11,12 @@ pipeline {
             dockerImage = ''
         }
     stages {
-        stage('Build VideoServiceJS') {
-            agent { docker { image nodeImage } }
-
-            steps {
-                sh '''
-               cd VideoServiceJS
-               node --version
-               npm install
-               '''
-            }
-        }
-
-        stage('Test VideoServiceJS') {
+        stage('VideoServiceJS: Build & Test') {
                 agent { docker { image nodeImage } }
             steps {
                 sh '''
                  cd VideoServiceJS
+                 npm install
                  npm test
                  '''}
             post {
@@ -36,20 +25,12 @@ pipeline {
                     }
             }
         }
-
-        // stage('Clone git') {
-        //     agent any
-        //     steps {
-        //         git([url: 'https://github.com/manolovisoromero/Twitch2.git', branch: 'main'])
-        //     }
-        // }
         stage('Building image') {
             agent any
-
             steps {
                 dir('./VideoServiceJS') {
                     script {
-                        dockerImage = docker.build(registry+":$env.BUILD_ID")
+                        dockerImage = docker.build(registry + ":$env.BUILD_ID")
                     }
                 }
             }
@@ -62,6 +43,13 @@ pipeline {
                         dockerImage.push('latest')
                     }
                 }
+            }
+        }
+
+        stage('Deploy to GKE') {
+            steps {
+            sh "sed -i 's/twitch2:latest/VideoServiceJS:${env.BUILD_ID}/g' deployment.yaml"
+            step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
 

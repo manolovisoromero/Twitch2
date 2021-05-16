@@ -2,7 +2,7 @@ const io = require("socket.io-client");
 
 
 
-const socket = io("http://localhost:8092", {
+const socket = io("http://localhost:8093", {
     query: {
         channel: 2
     }
@@ -14,6 +14,7 @@ setTimeout(function () {
     socket.emit("msg", JSON.stringify(msg));
 }, 3000);
 setTimeout(function () {
+    msg.msg.content = "halllo"
     socket.emit("msg", JSON.stringify(msg));
 }, 4000);
 

@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "test": "jest --config ./jest.config.json",
+    "test:watch": "npm run test -- --watch",
+    "nodemon start": "nodemon server.js"
+  },
   "name": "chat-service",
   "description": "A chat microservice for the Twitch2 system",
   "dependencies": {
@@ -7,5 +12,6 @@
     "ioredis": "^4.26.0",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.1"
+
   }
 }

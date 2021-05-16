@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: VideoServiceJS
+labels:
+  app: VideoServiceJS
+spec:
+strategy:
+  type: Recreate
+template:
+  metadata:
+    labels:
+      app: VideoServiceJS
+      tier: VideoServiceJS
+  spec:
+    containers:
+    - name: VideoServiceJS
+      image: mvisoromero/twitch2:latest
+      imagePullPolicy: Always
+      ports:
+      - containerPort: 8083
+        name: VideoServiceJS
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+name: VideoServiceJS
+labels:
+  app: VideoServiceJS
+spec:
+ports:
+  - port: 8083
+    targetPort: 8083
+selector:
+  app: VideoServiceJS
+  tier: VideoServiceJS
+type: LoadBalancer

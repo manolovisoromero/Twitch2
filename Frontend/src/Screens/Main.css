@@ -1,0 +1,64 @@
+html,
+body,
+#app,
+#root,
+#app>div {
+    height: 100%
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+}
+
+.content {
+    align-items: center;
+    /* vertical-align: center; */
+    width: 80%;
+    height: 100%
+}
+.content2 {
+    align-items: center;
+    /* vertical-align: center; */
+    height: 100%
+}
+
+.aaa {
+    display: flex;
+    /* height: 100% */
+}
+.streamer-info{
+    height: 20%;
+    background-color: rgb(95, 77, 77);
+}
+.stream-holder{
+    display:flex;
+    background-color: blue;
+    height:80%;
+    width:100%;
+}
+.video-holder{
+    width: 75%;
+}
+.chat{
+    background-color: brown;
+    width:25%;
+    /* overflow: hidden; */
+}
+.chat-messages{
+    display:inline-block;
+    overflow: auto;
+    height: 95%;
+    width: 100%;
+    bottom:0;
+
+}
+.message{
+    display: block;
+}
+.chat-input{
+    height: 5%;
+}

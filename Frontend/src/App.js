@@ -7,6 +7,10 @@ import Login2 from './Screens/Login2.js'
 import { ReactKeycloakProvider } from '@react-keycloak/web'
 
 import keycloak from './keycloak'
+import Main from './Screens/Main.js'
+import './Screens/Main.css';
+
+
 
 
 const videoJsOptions = {
@@ -47,18 +51,23 @@ export default class App extends Component {
   render() {
     var { isLoggedin } = this.state;
 
-    if (!isLoggedin) {  
+    if (!isLoggedin) {
       return (
-        <ReactKeycloakProvider       authClient={keycloak}
+        <ReactKeycloakProvider authClient={keycloak}
         >
-            <Login2  loginClick={this.onLoginClicked}></Login2>
+          <Login2 loginClick={this.onLoginClicked}></Login2>
         </ReactKeycloakProvider>
       )
     }
     else {
       return (
         <ReactKeycloakProvider authClient={keycloak}>
-          <VideoPlayer {...videoJsOptions} />
+          {/* <VideoPlayer {...videoJsOptions} /> */}
+          <div className="App-body">
+
+          <Main/>
+
+          </div>
 
         </ReactKeycloakProvider>
       )
