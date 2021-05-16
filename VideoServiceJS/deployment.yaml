@@ -16,9 +16,9 @@ spec:
         app: VideoServiceJS
         tier: VideoServiceJS
     spec:
-      selector: 
-        matchLabels:
-          app: VideoServiceJS
+      # selector: 
+      #   matchLabels:
+      #     app: VideoServiceJS
       containers:
         - name: VideoServiceJS
           image: mvisoromero/twitch2:latest
