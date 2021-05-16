@@ -14,20 +14,20 @@ spec:
         tier: VideoServiceJS
   spec:
     containers:
-    - name: VideoServiceJS
-      image: mvisoromero/twitch2:latest
-      imagePullPolicy: Always
-      ports:
-      - containerPort: 8083
-        name: VideoServiceJS
+      - name: VideoServiceJS
+        image: mvisoromero/twitch2:latest
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 8083
+            name: VideoServiceJS
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-name: VideoServiceJS
-labels:
-  app: VideoServiceJS
+  name: VideoServiceJS
+  labels:
+    app: VideoServiceJS
 spec:
 ports:
   - port: 8083
