@@ -15,47 +15,47 @@ pipeline {
             CREDENTIALS_ID = 'gke'
         }
     stages {
-        stage('VideoServiceJS: Build & Test') {
-                agent { docker { image nodeImage } }
-            steps {
-                sh '''
-                 cd VideoServiceJS
-                 npm install
-                 npm test
-                 '''}
-            post {
-                    success {
-                            junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
-                    }
-            }
-        }
-        stage('Building image') {
-            agent any
-            steps {
-                dir('./VideoServiceJS') {
-                    script {
-                        dockerImage = docker.build(registry + ":$env.BUILD_ID")
-                    }
-                }
-            }
-        }
+        // stage('VideoServiceJS: Build & Test') {
+        //         agent { docker { image nodeImage } }
+        //     steps {
+        //         sh '''
+        //          cd VideoServiceJS
+        //          npm install
+        //          npm test
+        //          '''}
+        //     post {
+        //             success {
+        //                     junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
+        //             }
+        //     }
+        // }
+        // stage('Building image') {
+        //     agent any
+        //     steps {
+        //         dir('./VideoServiceJS') {
+        //             script {
+        //                 dockerImage = docker.build(registry + ":$env.BUILD_ID")
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Push image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
+        // stage('Push image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
+        //                 dockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy to GKE') {
             agent any
             steps {
                 dir('./VideoServiceJS') {
                     sh "sed -i 's/twitch2:latest/VideoServiceJS:${env.BUILD_ID}/g' deployment.yaml"
-                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: 'gke', verifyDeployments: true])
                 }
             }
         }
