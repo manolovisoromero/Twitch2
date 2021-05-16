@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-name: VideoServiceJS
-labels:
-  app: VideoServiceJS
+  name: VideoServiceJS
+  labels:
+    app: VideoServiceJS
 spec:
-strategy:
-  type: Recreate
+  strategy:
+    type: Recreate
 template:
   metadata:
     labels:
