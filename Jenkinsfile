@@ -15,40 +15,40 @@ pipeline {
             CREDENTIALS_ID = 'gke'
         }
     stages {
-        stage('videoservicejs: Build & Test') {
-                agent { docker { image nodeImage } }
-            steps {
-                sh '''
-                 cd videoservicejs
-                 npm install
-                 npm test
-                 '''}
-            post {
-                    success {
-                            junit checksName: 'Jest Tests', testResults: 'videoservicejs/**/*.xml'
-                    }
-            }
-        }
-        stage('Building image') {
-            agent any
-            steps {
-                dir('./videoservicejs') {
-                    script {
-                        dockerImage = docker.build(registry + ":$env.BUILD_ID")
-                    }
-                }
-            }
-        }
+        // stage('videoservicejs: Build & Test') {
+        //         agent { docker { image nodeImage } }
+        //     steps {
+        //         sh '''
+        //          cd videoservicejs
+        //          npm install
+        //          npm test
+        //          '''}
+        //     post {
+        //             success {
+        //                     junit checksName: 'Jest Tests', testResults: 'videoservicejs/**/*.xml'
+        //             }
+        //     }
+        // }
+        // stage('Building image') {
+        //     agent any
+        //     steps {
+        //         dir('./videoservicejs') {
+        //             script {
+        //                 dockerImage = docker.build(registry + ":$env.BUILD_ID")
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('Push image') {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-                        dockerImage.push('latest')
-                    }
-                }
-            }
-        }
+        // stage('Push image') {
+        //     steps {
+        //         script {
+        //             docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
+        //                 dockerImage.push('latest')
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy to GKE') {
             agent any
