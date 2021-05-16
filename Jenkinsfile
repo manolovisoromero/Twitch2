@@ -15,24 +15,24 @@ pipeline {
             CREDENTIALS_ID = 'gke'
         }
     stages {
-        // stage('VideoServiceJS: Build & Test') {
+        // stage('videoservicejs: Build & Test') {
         //         agent { docker { image nodeImage } }
         //     steps {
         //         sh '''
-        //          cd VideoServiceJS
+        //          cd videoservicejs
         //          npm install
         //          npm test
         //          '''}
         //     post {
         //             success {
-        //                     junit checksName: 'Jest Tests', testResults: 'VideoServiceJS/**/*.xml'
+        //                     junit checksName: 'Jest Tests', testResults: 'videoservicejs/**/*.xml'
         //             }
         //     }
         // }
         // stage('Building image') {
         //     agent any
         //     steps {
-        //         dir('./VideoServiceJS') {
+        //         dir('./videoservicejs') {
         //             script {
         //                 dockerImage = docker.build(registry + ":$env.BUILD_ID")
         //             }
@@ -53,8 +53,8 @@ pipeline {
         stage('Deploy to GKE') {
             agent any
             steps {
-                dir('./VideoServiceJS') {
-                    sh "sed -i 's/twitch2:latest/VideoServiceJS:${env.BUILD_ID}/g' deployment.yaml"
+                dir('./videoservicejs') {
+                    sh "sed -i 's/twitch2:latest/videoservicejs:${env.BUILD_ID}/g' deployment.yaml"
                     step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: 'twitch2', verifyDeployments: false])
                 }
             }
