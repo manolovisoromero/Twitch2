@@ -2,7 +2,8 @@
   "scripts": {
     "test": "jest --config ./jest.config.json",
     "test:watch": "npm run test -- --watch",
-    "nodemon start": "nodemon server.js"
+    "nodemon start": "nodemon server.js",
+    "start": "pm2-runtime start ecosystem.config.js --env production"
   },
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
