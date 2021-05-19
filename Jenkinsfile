@@ -59,10 +59,9 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''       
-                           echo java_home: $JAVA_HOME
-                           JAVA_HOME=/var/jenkins_home/tools/hudson.model.JDK/OpenJDK-11/jdk-11.0.1
-                           echo java_home: $JAVA_HOME
                            cd /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/jre
+                           dir
+                           cd /bin
                            dir
 
                           
