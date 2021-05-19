@@ -6,7 +6,7 @@ pipeline {
         tools {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
-        SonarRunnerInstallation 'sonar'
+        SonarRunnerInstallation 'sonarscanner'
         }
         environment {
             dockerImage = ''
