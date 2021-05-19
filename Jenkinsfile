@@ -50,6 +50,7 @@ pipeline {
 //         }
             
             stage('SonarQube analysis') {
+                     agent { docker { image nodeImage } }
     steps{
         script {
             scannerHome = tool 'sonarscanner';
