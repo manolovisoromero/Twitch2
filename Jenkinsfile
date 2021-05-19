@@ -13,6 +13,7 @@ pipeline {
             CLUSTER_NAME = 'twitch2'
             LOCATION = 'europe-west1-b'
             CREDENTIALS_ID = 'gke'
+            JAVA_HOME = '/opt/java/openjdk/bin'
         }
     stages {
 //         stage('videoservicejs: Build & Test') {
@@ -58,7 +59,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                           $ JAVA_HOME=/opt/java/openjdk/bin
+                           $JAVA_HOME=/opt/java/openjdk/bin
                            $echo java_home
                            $echo $JAVA_HOME
                           
