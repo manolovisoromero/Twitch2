@@ -57,7 +57,8 @@ pipeline {
             scannerHome = tool 'sonarscanner';
         }
         withSonarQubeEnv('sonar') {
-                
+                 sh "apt-get update"  
+               
                  sh "apt-get install sudo"  
                  sh "sudo /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner"         
         }
