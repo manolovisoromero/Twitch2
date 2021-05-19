@@ -58,8 +58,8 @@ pipeline {
         }
         withSonarQubeEnv('sonar') {
                 
-                 sh '''
-                           JAVA_HOME=/var/jenkins_home/tools/hudson.model.JDK/OpenJDK-11/jdk-11.0.1/bin
+                 sh '''       
+                           JAVA_HOME=/var/jenkins_home/tools/hudson.model.JDK/OpenJDK-11/jdk-11.0.1
                            printenv
 
                           
