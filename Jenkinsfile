@@ -39,7 +39,6 @@ pipeline {
                                 sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
                                         -Dsonar.projectKey=Twitch2 \
                                         -Dsonar.sources=. \
-                                        -Dsonar.nodejs.executable=/usr/bin/nodejs \
                                         -Dsonar.host.url=http://83.80.179.193:8079 \
                                         -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce  "     
                         }}}
