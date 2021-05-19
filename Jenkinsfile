@@ -51,7 +51,7 @@ pipeline {
 //         }
             
             stage('SonarQube analysis') {
-                     agent { docker { image mavenImage } }
+                     agent { docker { image nodeImage } }
     steps{
         script {
             scannerHome = tool 'sonarscanner';
