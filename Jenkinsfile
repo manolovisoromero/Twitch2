@@ -32,22 +32,42 @@ pipeline {
         
         
         
-        stage('Code quality') {
-                agent { docker { image nodeImage } }
-                def scannerHome = tool 'sonarscanner'
-            steps {
-                    withSonarQubeEnv('sonar') {
+//         stage('Code quality') {
+//                 agent { docker { image nodeImage } }
+//                 def scannerHome = tool 'sonarscanner'
+//             steps {
+//                     withSonarQubeEnv('sonar') {
 
-                sh '''
+//                 sh '''
+//                         ${scannerHome}/bin/sonar-scanner \
+//                           -Dsonar.projectKey=Twitch2 \
+//                           -Dsonar.sources=. \
+//                           -Dsonar.host.url=http://localhost:8079 \
+//                           -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce                
+                
+//                 '''}
+//             }
+//         }
+            
+            stage('SonarQube analysis') {
+    steps{
+        script {
+            scannerHome = tool 'sonarscanner';
+        }
+        withSonarQubeEnv('sonar') {
+                
+                 sh '''
                         ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=Twitch2 \
                           -Dsonar.sources=. \
                           -Dsonar.host.url=http://localhost:8079 \
                           -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce                
                 
-                '''}
-            }
+                '''
+                
         }
+    }
+}
             
 
         
