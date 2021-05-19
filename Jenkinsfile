@@ -58,7 +58,9 @@ pipeline {
         }
         withSonarQubeEnv('sonar') {     
                 
-                 sh "whoami"
+                 sh "cd /opt/java/openjdk/bin"
+                 sh "dir"
+
                  sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
                            -Dsonar.projectKey=Twitch2 \
                            -Dsonar.sources=. \
