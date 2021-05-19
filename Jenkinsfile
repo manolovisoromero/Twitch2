@@ -35,7 +35,7 @@ pipeline {
         stage('Code quality') {
                 agent { docker { image nodeImage } }
             steps {
-                    withSonarQubeEnv('SonarQube') {
+                    withSonarQubeEnv('sonar') {
 
                 sh '''
                         scannerHome = tool 'sonarscanner'
