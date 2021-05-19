@@ -56,8 +56,9 @@ pipeline {
         script {
             scannerHome = tool 'sonarscanner';
         }
-        withSonarQubeEnv('sonar') {        
-                 sh "stat -c '%a - %n' /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/jre/bin/java*"
+        withSonarQubeEnv('sonar') {     
+                
+                 sh "whoami"
                  sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner"     
         }
     }
