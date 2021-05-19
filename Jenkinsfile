@@ -6,6 +6,7 @@ pipeline {
         tools {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
+        scannerHome = 'sonar'
         }
         environment {
             dockerImage = ''
@@ -34,17 +35,22 @@ pipeline {
         
         stage('Code quality') {
                 agent { docker { image nodeImage } }
+                def scannherHome = tool 'sonar'
             steps {
+                    withSonarQubeEnv('SonarQube') {
+
                 sh '''
-                        sonar-scanner \
+                        ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=Twitch2 \
                           -Dsonar.sources=. \
                           -Dsonar.host.url=http://localhost:8079 \
                           -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce                
                 
                 '''}
+            }
         }
-        
+            
+
         
 //         stage('Building image') {
 //             agent any
