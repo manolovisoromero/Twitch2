@@ -6,7 +6,7 @@ pipeline {
         tools {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
-        scannerHome 'sonarscanner'
+        scannerHome 'hudson.plugins.sonar.SonarRunnerInstallation'
         }
         environment {
             dockerImage = ''
