@@ -59,9 +59,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                           $JAVA_HOME=/opt/java/openjdk/bin
-                           $echo java_home
-                           $echo $JAVA_HOME
+                           printenv
                           
                            $echo /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner -v
 
