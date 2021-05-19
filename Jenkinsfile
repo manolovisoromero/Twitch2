@@ -6,7 +6,7 @@ pipeline {
         tools {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
-        scannerHome = 'sonar'
+        scannerHome 'sonar'
         }
         environment {
             dockerImage = ''
@@ -35,7 +35,6 @@ pipeline {
         
         stage('Code quality') {
                 agent { docker { image nodeImage } }
-                def scannherHome = tool 'sonar'
             steps {
                     withSonarQubeEnv('SonarQube') {
 
