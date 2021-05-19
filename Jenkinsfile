@@ -6,7 +6,6 @@ pipeline {
         tools {
         jdk 'OpenJDK-11'
         nodejs 'NodeJS'
-        SonarRunnerInstallation 'sonarscanner'
         }
         environment {
             dockerImage = ''
@@ -39,6 +38,7 @@ pipeline {
                     withSonarQubeEnv('SonarQube') {
 
                 sh '''
+                        scannerHome = tool 'sonarscanner'
                         ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=Twitch2 \
                           -Dsonar.sources=. \
