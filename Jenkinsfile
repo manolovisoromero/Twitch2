@@ -59,7 +59,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''                          
-                            sudo /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner
+                            /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner
 
                 
                 '''
