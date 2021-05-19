@@ -58,14 +58,7 @@ pipeline {
         }
         withSonarQubeEnv('sonar') {
                 
-                 sh '''       
-                           cd /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/jre
-                           dir
-                           cd /bin
-                           dir
-                           whoami
-
-                          
+                 sh '''                          
                             /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner
 
                 
