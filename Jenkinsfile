@@ -65,8 +65,10 @@ pipeline {
             agent any
             steps {
                 dir('./videoservicejs') {
-                    sh "sonar-scanner.bat -D"sonar.projectKey=Twitch2" -D"sonar.sources=." -D"sonar.host.url=http://localhost:8079" -D"sonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce""
-                }
+                    sh```
+                        sonar-scanner.bat -D"sonar.projectKey=Twitch2" -D"sonar.sources=." -D"sonar.host.url=http://localhost:8079" -D"sonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce"
+                        ```` 
+                                }
             }
         }
 
