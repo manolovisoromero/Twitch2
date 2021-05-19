@@ -59,6 +59,7 @@ pipeline {
                 
                  sh '''
               echo $PATH
+              echo $scannerHome
                 
                 '''
                 
