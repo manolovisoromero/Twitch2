@@ -57,7 +57,7 @@ pipeline {
             scannerHome = tool 'sonarscanner';
         }
         withSonarQubeEnv('sonar') {        
-                 sh "chmod -R ugo+rwx /var/jenkins_home/sonar-scanner-4.6.2.2472-linux"
+                 sh "stat -c '%a - %n' /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/jre/bin/java*"
                  sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner"     
         }
     }
