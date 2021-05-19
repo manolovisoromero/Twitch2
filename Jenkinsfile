@@ -60,6 +60,7 @@ pipeline {
                 
                  sh '''
                            printenv
+                           JAVA_HOME=/var/jenkins_home/tools/hudson.model.JDK/OpenJDK-11/jdk-11.0.1/bin
                           
                            $echo /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner -v
 
