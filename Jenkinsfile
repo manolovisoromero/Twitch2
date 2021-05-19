@@ -58,13 +58,8 @@ pipeline {
         }
         withSonarQubeEnv('sonar') {
                 
-                 sh '''        
-                            chmod +x -R ${env.WORKSPACE}
-                            /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner
-
-                
-                '''
-                
+                 sh "chmod +x -R ${env.WORKSPACE}"  
+                 sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner"         
         }
     }
 }
