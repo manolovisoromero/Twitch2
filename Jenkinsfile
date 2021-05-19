@@ -57,13 +57,8 @@ pipeline {
             scannerHome = tool 'sonarscanner';
         }
         withSonarQubeEnv('sonar') {     
-                 sh "dir"
-                 sh "cd /opt"
-                 sh "dir"
-                 sh "cd /java"
-                 sh "dir"
 
-                 sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+                 sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scannerr \
                            -Dsonar.projectKey=Twitch2 \
                            -Dsonar.sources=. \
                            -Dsonar.host.url=http://localhost:8079 \
