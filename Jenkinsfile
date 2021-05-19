@@ -58,7 +58,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                                     sonar-scanner \
+                                     /opt/sonar-scanner \
                            -Dsonar.projectKey=Twitch2 \
                            -Dsonar.sources=. \
                            -Dsonar.host.url=http://localhost:8079 \
