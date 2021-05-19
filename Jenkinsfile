@@ -58,7 +58,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                           $echo sonar-scanner -v
+                           $echo /var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner -v
 
                 
                 '''
