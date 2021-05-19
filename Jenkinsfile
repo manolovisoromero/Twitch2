@@ -34,11 +34,11 @@ pipeline {
         
         stage('Code quality') {
                 agent { docker { image nodeImage } }
+                def scannerHome = tool 'sonarscanner'
             steps {
                     withSonarQubeEnv('sonar') {
 
                 sh '''
-                        scannerHome = tool 'sonarscanner'
                         ${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=Twitch2 \
                           -Dsonar.sources=. \
