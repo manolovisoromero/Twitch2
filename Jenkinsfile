@@ -59,6 +59,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh "chmod +x -R ${env.WORKSPACE}"  
+                 sh "chmod +x ./var/jenkins_home/workspace/Twitch_pipeline_main@tmp/durable-7eeea273/script.sh"
                  sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner"         
         }
     }
