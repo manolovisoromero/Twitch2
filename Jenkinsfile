@@ -14,7 +14,7 @@ pipeline {
             LOCATION = 'europe-west1-b'
             CREDENTIALS_ID = 'gke'
         }
-//     stages {
+    stages {
 //         stage('videoservicejs: Build & Test') {
 //                 agent { docker { image nodeImage } }
 //             steps {
@@ -90,4 +90,5 @@ pipeline {
     //     }
     // }
 } 
+}
 
