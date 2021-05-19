@@ -58,7 +58,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                           echo sonar-scanner -v
+                           $echo sonar-scanner -v
 
                 
                 '''
