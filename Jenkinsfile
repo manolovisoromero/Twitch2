@@ -36,8 +36,13 @@ pipeline {
                 agent { docker { image nodeImage } }
             steps {
                 sh '''
-                        sonar-scanner.bat -D"sonar.projectKey=Twitch2" -D"sonar.sources=." -D"sonar.host.url=http://localhost:8079" -D"sonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce"
-                 '''}
+                        sonar \
+                          -Dsonar.projectKey=Twitch2 \
+                          -Dsonar.sources=. \
+                          -Dsonar.host.url=http://localhost:8079 \
+                          -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce                
+                
+                '''}
         }
         
         
