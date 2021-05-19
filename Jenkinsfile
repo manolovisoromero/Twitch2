@@ -58,8 +58,7 @@ pipeline {
         withSonarQubeEnv('sonar') {
                 
                  sh '''
-                           $echo path
-                           $echo $PATH
+                           $ JAVA_HOME=/opt/java/openjdk/bin
                            $echo java_home
                            $echo $JAVA_HOME
                           
