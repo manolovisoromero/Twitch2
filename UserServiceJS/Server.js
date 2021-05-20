@@ -5,10 +5,32 @@ const hostname = '127.0.0.1';
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const { Kafka } = require('kafkajs')
+
 
 const url = 'mongodb://localhost:2717';
 const dbName = 'test';
 const client = new MongoClient(url);
+const kafka = new Kafka({
+    clientId: 'UserServiceJS',
+    brokers: ['172.25.75.218:9092']
+  })
+
+const consumer = kafka.consumer({ groupId: 'test-group' })
+
+async function init(){
+    await consumer.connect()
+    await consumer.subscribe({ topic: 'userstreams', fromBeginning: true })
+    await consumer.run({
+        eachMessage: async ({ topic, partition, message }) => {
+            console.log(JSON.parse(message.value.toString()));
+
+            //msg = JSON.parse(message)
+            //console.log(`user: ${msg.user} Stream status:${msg.status}`);
+        },
+      })    
+}
+init()
 
 // client.connect(function (err) {
 //     assert.strictEqual(null, err);

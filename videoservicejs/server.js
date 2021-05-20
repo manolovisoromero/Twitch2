@@ -1,21 +1,33 @@
 const express = require('express')
 const app = express()
-const port = 8095
-const port2 = 8081
-
-const hostname = '127.0.0.1';
+const { Kafka } = require('kafkajs')
 const fileUpload = require('express-fileupload');
-
 const cors = require('cors');
 
+const hostname = '127.0.0.1';
+const port = 8095
+const port2 = 8081
 
 app.use(cors())
 app.use(express.json());
 app.use(fileUpload());
+app.options('*', cors())
 
-const { startStream } = require('./ffmpeg')
+
+const kafka = new Kafka({
+  clientId: 'VideoServiceJS',
+  brokers: ['172.25.75.218:9092']
+})
+const producer = kafka.producer()
 
 
+async function init(){
+  await producer.connect()
+}
+init()
+
+const { startStream } = require('./ffmpeg');
+const { query } = require('express');
 
 app.post('/upload', function (req, res) {
 
@@ -61,43 +73,40 @@ function removeLiveStream(streamId){
 }
 
 app.get('/', (req, res) => {
-  console.log(res.req.body);
+  console.log(res.req.query);
   const nr = Math.random();
+
+
   return res.status(200).send(nr.toString());
 })
-app.get('/test', (req, res) => {
-  console.log(res.req.body);
-  res.sendStatus(200).send('hi');
-})
-
-app.get('/test3', (req, res) => {
-  console.log(res.req.body);
-  res.sendStatus(200);
-})
-app.get('/test5', (req, res) => {
-  console.log(res.req.body);
-  res.sendStatus(200);
-})
 
 
+app.get('/UserStream', (req, res) => {
+  console.log(res.req.query);
+
+  const nr = Math.random();
+  var status = false;
+  if(res.req.query.call == 'done'){status = false};
+  if(res.req.query.call == 'publish'){status = true};
+  sendKafkaMsg({ user: res.req.query.name, status: status })
+  return res.status(200).send(nr.toString());
+})
+
+async function sendKafkaMsg(message){
+  console.log(message);
+  await producer.send({
+    topic: 'userstreams',
+    messages: [
+      { value: JSON.stringify(message)},
+    ],
+  }) 
+}
 
 
 app.listen(port2, () => {
   console.log(`Example app listening at http://localhost:${port2}`)
 })
 
-app.options('*', cors())
-
-
-// const server = http.createServer((req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'text/plain');
-//   res.end('Hello World');
-// });
-
-// server.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
 
 
 app.post('/PostVideo', (req, res) => {
