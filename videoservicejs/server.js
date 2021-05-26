@@ -16,7 +16,7 @@ app.options('*', cors())
 
 const kafka = new Kafka({
   clientId: 'VideoServiceJS',
-  brokers: ['172.25.75.218:9092']
+  brokers: ['172.29.193.168:9092']
 })
 const producer = kafka.producer()
 
