@@ -8,4 +8,4 @@ RUN npm install
 
 COPY . .
 EXPOSE 8083
-CMD ["pm2-runtime", "server.js"]
+CMD ["node", "server.js"]
