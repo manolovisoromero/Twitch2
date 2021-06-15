@@ -44,26 +44,26 @@ pipeline {
 //                         }}}
 
         
-//         stage('Building image') {
-//             agent any
-//             steps {
-//                 dir('./videoservicejs') {
-//                     script {
-//                         dockerImage = docker.build(registry + ":$env.BUILD_ID")
-//                     }
-//                 }
-//             }
-//         }
+        stage('Building image') {
+            agent any
+            steps {
+                dir('./videoservicejs') {
+                    script {
+                        dockerImage = docker.build(registry + ":$env.BUILD_ID")
+                    }
+                }
+            }
+        }
 
-//         stage('Push image') {
-//             steps {
-//                 script {
-//                     docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
-//                         dockerImage.push('latest')
-//                     }
-//                 }
-//             }
-//         }
+        stage('Push image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DockerCred') {
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
 
         stage('Deploy to GKE') {
             agent any
