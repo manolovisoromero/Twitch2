@@ -31,17 +31,17 @@ pipeline {
 //             }
 //         }
             
-            stage('SonarQube analysis') {
-                     agent { docker { image mavenImage } }
-                steps{
-                        withSonarQubeEnv('sonar') { 
+//             stage('SonarQube analysis') {
+//                      agent { docker { image mavenImage } }
+//                 steps{
+//                         withSonarQubeEnv('sonar') { 
 
-                                sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-                                        -Dsonar.projectKey=Twitch2 \
-                                        -Dsonar.sources=. \
-                                        -Dsonar.host.url=http://83.80.179.193:8079 \
-                                        -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce  "     
-                        }}}
+//                                 sh "/var/jenkins_home/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
+//                                         -Dsonar.projectKey=Twitch2 \
+//                                         -Dsonar.sources=. \
+//                                         -Dsonar.host.url=http://83.80.179.193:8079 \
+//                                         -Dsonar.login=b39b56977cccd59ebb8aa23581c7575f9f4a70ce  "     
+//                         }}}
 
         
 //         stage('Building image') {
@@ -65,15 +65,15 @@ pipeline {
 //             }
 //         }
 
-//         stage('Deploy to GKE') {
-//             agent any
-//             steps {
-//                 dir('./videoservicejs') {
-//                     sh "sed -i 's/twitch2:latest/videoservicejs:${env.BUILD_ID}/g' deployment.yaml"
-//                     step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: 'twitch2', verifyDeployments: true])
-//                 }
-//             }
-//         }
+        stage('Deploy to GKE') {
+            agent any
+            steps {
+                dir('./videoservicejs') {
+                    sh "sed -i 's/twitch2:latest/videoservicejs:${env.BUILD_ID}/g' deployment.yaml"
+                    step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: 'twitch2', verifyDeployments: true])
+                }
+            }
+        }
         
         
 
